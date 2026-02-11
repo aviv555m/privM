@@ -32,6 +32,7 @@ function formatTime(value?: { toDate?: () => Date } | null) {
   return value.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 }
 
+<<<<<<< HEAD
 function initials(name?: string | null) {
   if (!name) return '?';
   return name
@@ -42,6 +43,8 @@ function initials(name?: string | null) {
     .toUpperCase();
 }
 
+=======
+>>>>>>> 5a9a70d (fix: remove binary assets from source control)
 export default function HomePage() {
   const [mode, setMode] = useState<'light' | 'dark'>('light');
   const [currentUser, setCurrentUser] = useState<{ uid: string; email: string | null; displayName: string | null } | null>(null);
@@ -70,6 +73,7 @@ export default function HomePage() {
         return;
       }
 
+<<<<<<< HEAD
       const resolvedName = user.displayName ?? user.email?.split('@')[0] ?? 'User';
       setCurrentUser({ uid: user.uid, email: user.email, displayName: user.displayName });
       setDisplayName((value) => value || resolvedName);
@@ -78,6 +82,13 @@ export default function HomePage() {
         uid: user.uid,
         email: user.email ?? '',
         displayName: resolvedName,
+=======
+      setCurrentUser({ uid: user.uid, email: user.email, displayName: user.displayName });
+      await upsertUserProfile({
+        uid: user.uid,
+        email: user.email ?? '',
+        displayName: user.displayName ?? user.email?.split('@')[0] ?? 'User',
+>>>>>>> 5a9a70d (fix: remove binary assets from source control)
         photoURL: user.photoURL
       });
       await updatePresence(user.uid);
@@ -128,8 +139,14 @@ export default function HomePage() {
   }
 
   async function handleProfileSave() {
+<<<<<<< HEAD
     if (!currentUser || !displayName.trim()) return;
     await updateUserProfile(currentUser.uid, { displayName: displayName.trim(), photoURL: photoURL || null });
+=======
+    if (!currentUser) return;
+    await updateUserProfile(currentUser.uid, { displayName, photoURL: photoURL || null });
+    alert('Profile saved');
+>>>>>>> 5a9a70d (fix: remove binary assets from source control)
   }
 
   async function handleSearch() {
@@ -157,6 +174,7 @@ export default function HomePage() {
   if (!currentUser) {
     return (
       <main className="container">
+<<<<<<< HEAD
         <section className="auth-card">
           <h1 style={{ marginTop: 0 }}>Messenger</h1>
           <p style={{ color: 'var(--muted)' }}>Sign in with your email and password.</p>
@@ -166,6 +184,17 @@ export default function HomePage() {
           <div style={{ display: 'flex', gap: 8 }}>
             <button className="primary-btn" onClick={() => handleSignIn(false)}>Sign in</button>
             <button className="primary-btn" onClick={() => handleSignIn(true)}>Register</button>
+=======
+        <section className="card" style={{ maxWidth: 460, margin: '5rem auto' }}>
+          <h1>Messenger</h1>
+          <p>Sign in with your email and password.</p>
+          <input placeholder="Display name (for register)" value={displayName} onChange={(e) => setDisplayName(e.target.value)} style={{ width: '100%', marginBottom: 8 }} />
+          <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} style={{ width: '100%', marginBottom: 8 }} />
+          <input placeholder="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} style={{ width: '100%', marginBottom: 12 }} />
+          <div style={{ display: 'flex', gap: 8 }}>
+            <button onClick={() => handleSignIn(false)}>Sign in</button>
+            <button onClick={() => handleSignIn(true)}>Register</button>
+>>>>>>> 5a9a70d (fix: remove binary assets from source control)
           </div>
         </section>
       </main>
@@ -174,6 +203,7 @@ export default function HomePage() {
 
   return (
     <main className="container">
+<<<<<<< HEAD
       <header className="app-toolbar">
         <h1 style={{ margin: 0, fontSize: '1.2rem' }}>Messenger</h1>
         <div className="toolbar-actions">
@@ -254,15 +284,80 @@ export default function HomePage() {
                 <div key={message.id} className={`bubble-wrap ${mine ? 'mine' : 'other'}`}>
                   <div className="bubble">{message.text}</div>
                   <small className="meta-time" style={{ alignSelf: 'flex-end', marginTop: 2 }}>{formatTime(message.createdAt)}</small>
+=======
+      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+        <h1 style={{ margin: 0 }}>Messenger</h1>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <button onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}>{mode === 'light' ? 'Dark' : 'Light'} mode</button>
+          <button onClick={() => signOut(getFirebaseClients().auth)}>Sign out</button>
+        </div>
+      </header>
+      <section className="layout">
+        <aside className="card" style={{ overflowY: 'auto' }}>
+          <h3>New chat</h3>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <input value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder="Search by name/email" style={{ width: '100%' }} />
+            <button onClick={handleSearch}>Search</button>
+          </div>
+          {searchResults.map((user) => (
+            <button key={user.uid} onClick={() => openChat(user)} style={{ width: '100%', marginTop: 8, textAlign: 'left' }}>
+              {user.displayName} · {user.email}
+            </button>
+          ))}
+
+          <h3>Chats</h3>
+          {chats.map((chat) => {
+            const unread = chat.unreadCountMap?.[currentUser.uid] ?? 0;
+            const peer = chat.participants.find((value) => value !== currentUser.uid) ?? 'Unknown';
+            return (
+              <button key={chat.id} onClick={() => setSelectedChatId(chat.id)} style={{ width: '100%', marginBottom: 8, textAlign: 'left' }}>
+                <div style={{ fontWeight: 600 }}>{peer}</div>
+                <div style={{ color: 'var(--muted)' }}>{chat.lastMessage || 'No messages yet'}</div>
+                <small>{formatTime(chat.lastMessageAt)}</small>
+                {unread > 0 && <span style={{ marginLeft: 8, background: 'var(--accent)', color: '#fff', borderRadius: 12, padding: '2px 8px' }}>{unread}</span>}
+              </button>
+            );
+          })}
+
+          <h3>Profile</h3>
+          <input placeholder="Display name" value={displayName} onChange={(e) => setDisplayName(e.target.value)} style={{ width: '100%', marginBottom: 8 }} />
+          <input placeholder="Photo URL" value={photoURL} onChange={(e) => setPhotoURL(e.target.value)} style={{ width: '100%', marginBottom: 8 }} />
+          <button onClick={handleProfileSave}>Save profile</button>
+        </aside>
+
+        <section className="card" style={{ display: 'flex', flexDirection: 'column', minHeight: 300 }}>
+          <h3 style={{ marginTop: 0 }}>{otherParticipant ? `Chat with ${otherParticipant}` : 'Select a chat'}</h3>
+          <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 6 }}>
+            {messages.map((message) => {
+              const mine = message.senderId === currentUser.uid;
+              return (
+                <div key={message.id} style={{ alignSelf: mine ? 'flex-end' : 'flex-start', maxWidth: '70%' }}>
+                  <div
+                    style={{
+                      background: mine ? 'var(--accent)' : '#374151',
+                      color: '#fff',
+                      borderRadius: 12,
+                      padding: '8px 12px'
+                    }}
+                  >
+                    {message.text}
+                  </div>
+                  <small style={{ color: 'var(--muted)' }}>{formatTime(message.createdAt)}</small>
+>>>>>>> 5a9a70d (fix: remove binary assets from source control)
                 </div>
               );
             })}
             <div ref={messageEndRef} />
           </div>
+<<<<<<< HEAD
 
           <div className="composer">
             <input
               className="message-input"
+=======
+          <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
+            <input
+>>>>>>> 5a9a70d (fix: remove binary assets from source control)
               value={draft}
               onChange={(e) => setDraft(e.target.value)}
               onKeyDown={(e) => {
@@ -271,9 +366,16 @@ export default function HomePage() {
                   handleSend();
                 }
               }}
+<<<<<<< HEAD
               placeholder={`Type a message (${MAX_MESSAGE_LENGTH} max)`}
             />
             <button className="primary-btn" onClick={handleSend}>Send</button>
+=======
+              placeholder={`Message (max ${MAX_MESSAGE_LENGTH})`}
+              style={{ width: '100%' }}
+            />
+            <button onClick={handleSend}>Send</button>
+>>>>>>> 5a9a70d (fix: remove binary assets from source control)
           </div>
         </section>
       </section>

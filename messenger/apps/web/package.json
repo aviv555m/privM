@@ -3,7 +3,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+<<<<<<< HEAD
     "build": "next build",
+=======
+    "build": "next build && next export",
+>>>>>>> 5a9a70d (fix: remove binary assets from source control)
     "start": "next start",
     "lint": "tsc --noEmit",
     "typecheck": "tsc --noEmit"

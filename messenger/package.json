@@ -9,10 +9,16 @@
     "build:web": "pnpm --filter web build",
     "build:mobile": "pnpm --filter mobile export",
     "build:desktop": "pnpm --filter desktop tauri build",
+<<<<<<< HEAD
     "lint": "pnpm check:conflicts && pnpm -r lint",
     "typecheck": "pnpm check:conflicts && pnpm -r typecheck",
     "postinstall": "node scripts/generate-assets.mjs",
     "check:conflicts": "bash scripts/check-conflict-markers.sh"
+=======
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "postinstall": "node scripts/generate-assets.mjs"
+>>>>>>> 5a9a70d (fix: remove binary assets from source control)
   },
   "devDependencies": {
     "typescript": "^5.6.3"

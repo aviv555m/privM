@@ -125,7 +125,10 @@ pnpm build:desktop
 ## Lint / Typecheck
 
 ```bash
+<<<<<<< HEAD
 pnpm check:conflicts
+=======
+>>>>>>> 5a9a70d (fix: remove binary assets from source control)
 pnpm lint
 pnpm typecheck
 ```
