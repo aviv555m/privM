@@ -9,6 +9,50 @@ service cloud.firestore {
       return isSignedIn() && request.auth.uid in get(/databases/$(database)/documents/chats/$(chatId)).data.participants;
     }
 
+    function hasValidParticipants(data) {
+      return data.participants is list
+        && data.participants.size() == 2
+        && data.participants[0] is string
+        && data.participants[1] is string
+        && data.participants[0] != data.participants[1];
+    }
+
+    function hasValidLastMessageFields(data, participants) {
+      return data.lastMessage is string
+        && data.lastMessage.size() <= 1000
+        && (
+          (data.lastSenderId == '' && data.lastMessage == '')
+          || data.lastSenderId in participants
+        );
+    }
+
+    function hasValidUnreadCountMapShape(data, participants) {
+      return data.unreadCountMap is map
+        && data.unreadCountMap.keys().hasAll(participants)
+        && data.unreadCountMap.keys().hasOnly(participants)
+        && data.unreadCountMap[participants[0]] is int
+        && data.unreadCountMap[participants[1]] is int
+        && data.unreadCountMap[participants[0]] >= 0
+        && data.unreadCountMap[participants[1]] >= 0;
+    }
+
+    function isValidUnreadCountUpdate() {
+      let uid = request.auth.uid;
+      let participants = resource.data.participants;
+      let peerUid = participants[0] == uid ? participants[1] : participants[0];
+
+      return (
+        request.resource.data.lastSenderId == uid
+        && request.resource.data.unreadCountMap[uid] == 0
+        && request.resource.data.unreadCountMap[peerUid] == resource.data.unreadCountMap[peerUid] + 1
+      ) || (
+        request.resource.data.lastSenderId == resource.data.lastSenderId
+        && request.resource.data.lastMessage == resource.data.lastMessage
+        && request.resource.data.unreadCountMap[uid] == 0
+        && request.resource.data.unreadCountMap[peerUid] == resource.data.unreadCountMap[peerUid]
+      );
+    }
+
     match /users/{uid} {
       allow read: if true;
       allow create: if isSignedIn() && request.auth.uid == uid
@@ -24,14 +68,18 @@ service cloud.firestore {
     match /chats/{chatId} {
       allow read: if isSignedIn() && request.auth.uid in resource.data.participants;
       allow create: if isSignedIn()
-                    && request.resource.data.participants.size() == 2
-                    && request.auth.uid in request.resource.data.participants;
+                    && hasValidParticipants(request.resource.data)
+                    && request.auth.uid in request.resource.data.participants
+                    && hasValidLastMessageFields(request.resource.data, request.resource.data.participants)
+                    && hasValidUnreadCountMapShape(request.resource.data, request.resource.data.participants)
+                    && request.resource.data.unreadCountMap[request.resource.data.participants[0]] == 0
+                    && request.resource.data.unreadCountMap[request.resource.data.participants[1]] == 0;
       allow update: if isSignedIn()
                     && request.auth.uid in resource.data.participants
                     && request.resource.data.participants == resource.data.participants
-                    && request.resource.data.lastMessage is string
-                    && request.resource.data.lastMessage.size() <= 1000
-                    && request.resource.data.lastSenderId in resource.data.participants;
+                    && hasValidLastMessageFields(request.resource.data, resource.data.participants)
+                    && hasValidUnreadCountMapShape(request.resource.data, resource.data.participants)
+                    && isValidUnreadCountUpdate();
       allow delete: if false;
 
       match /messages/{messageId} {

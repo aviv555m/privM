@@ -129,6 +129,10 @@ export default function ChatApp() {
 
   async function handleProfileSave() {
     if (!currentUser || !displayName.trim()) return;
+    const { auth } = getFirebaseClients();
+    if (auth.currentUser) {
+      await updateProfile(auth.currentUser, { displayName: displayName.trim(), photoURL: photoURL || null });
+    }
     await updateUserProfile(currentUser.uid, { displayName: displayName.trim(), photoURL: photoURL || null });
   }
 

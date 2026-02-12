@@ -13,8 +13,8 @@ import {
   serverTimestamp,
   setDoc,
   updateDoc,
+  increment,
   where,
-  writeBatch,
   addDoc,
   type Firestore,
   type QueryConstraint
@@ -161,9 +161,8 @@ export async function sendMessage(chatId: string, senderId: string, text: string
   };
 
   if (recipientId) {
-    const unread = chat.unreadCountMap?.[recipientId] ?? 0;
     updates[`unreadCountMap.${senderId}`] = 0;
-    updates[`unreadCountMap.${recipientId}`] = unread + 1;
+    updates[`unreadCountMap.${recipientId}`] = increment(1);
   }
 
   await updateDoc(chatRef, updates);
