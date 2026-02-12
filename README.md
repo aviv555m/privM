@@ -77,6 +77,8 @@ Desktop reuses the web client env vars. Put Firebase values in `apps/web/.env.lo
 
 ```bash
 cd privM
+cd messenger
+winget install pnpm
 pnpm install
 ```
 
