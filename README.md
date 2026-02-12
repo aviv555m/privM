@@ -41,6 +41,7 @@ messenger/
 5. Deploy rules/indexes from this repo:
 
 ```bash
+npm install firebase
 firebase deploy --only firestore:rules --project <your-project-id>
 firebase deploy --only firestore:indexes --project <your-project-id>
 ```
