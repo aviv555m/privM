@@ -1,0 +1,21 @@
+{
+  "name": "messenger-monorepo",
+  "private": true,
+  "packageManager": "pnpm@9.12.2",
+  "scripts": {
+    "dev:web": "pnpm --filter web dev",
+    "dev:mobile": "pnpm --filter mobile start",
+    "dev:desktop": "pnpm --filter desktop tauri dev",
+    "build:web": "pnpm --filter web build",
+    "build:mobile": "pnpm --filter mobile export",
+    "build:desktop": "pnpm --filter desktop tauri build",
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "postinstall": "node scripts/generate-assets.mjs",
+    "firebase:deploy:rules": "firebase deploy --only firestore:rules",
+    "firebase:deploy:indexes": "firebase deploy --only firestore:indexes"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  }
+}
