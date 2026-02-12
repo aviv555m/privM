@@ -125,6 +125,7 @@ pnpm build:desktop
 ## Lint / Typecheck
 
 ```bash
+pnpm check:conflicts
 pnpm lint
 pnpm typecheck
 ```
