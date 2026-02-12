@@ -39,16 +39,21 @@ messenger/
 3. Create **Firestore Database (production mode)**.
 4. In Firebase Console, copy your web app config values.
 <<<<<<< HEAD
+<<<<<<< HEAD
 5. Deploy rules/indexes from this repo:
 =======
 5. From the `messenger/` root, deploy rules/indexes:
 >>>>>>> 88e678f (fix: add firebase cli config for firestore deploys)
+=======
+5. Deploy rules/indexes from this repo:
+>>>>>>> b3374cc (fix: reduce merge conflicts and document firebase deploy path)
 
 ```bash
 firebase deploy --only firestore:rules --project <your-project-id>
 firebase deploy --only firestore:indexes --project <your-project-id>
 ```
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 If you run commands from `messenger/firebase/`, pass the root config explicitly:
@@ -70,6 +75,8 @@ pnpm firebase:deploy:indexes -- --project <your-project-id>
 ```
 
 >>>>>>> 88e678f (fix: add firebase cli config for firestore deploys)
+=======
+>>>>>>> b3374cc (fix: reduce merge conflicts and document firebase deploy path)
 ## Environment Variables
 
 ### Web (`apps/web/.env.local`)
