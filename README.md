@@ -42,6 +42,7 @@ messenger/
 
 ```bash
 npm install firebase
+pnpm login
 firebase deploy --only firestore:rules --project <your-project-id>
 firebase deploy --only firestore:indexes --project <your-project-id>
 ```
