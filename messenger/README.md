@@ -38,29 +38,11 @@ messenger/
 2. Enable **Authentication → Email/Password**.
 3. Create **Firestore Database (production mode)**.
 4. In Firebase Console, copy your web app config values.
-5. From the `messenger/` root, deploy rules/indexes:
+5. Deploy rules/indexes from this repo:
 
 ```bash
 firebase deploy --only firestore:rules --project <your-project-id>
 firebase deploy --only firestore:indexes --project <your-project-id>
-```
-
-If you run commands from `messenger/firebase/`, pass the root config explicitly:
-
-```bash
-firebase deploy --config ../firebase.json --only firestore:rules --project <your-project-id>
-firebase deploy --config ../firebase.json --only firestore:indexes --project <your-project-id>
-```
-
-Optional: copy `.firebaserc.example` to `.firebaserc` and set your default project id.
-
-## Firebase Deploy Convenience Scripts
-
-From `messenger/` root:
-
-```bash
-pnpm firebase:deploy:rules -- --project <your-project-id>
-pnpm firebase:deploy:indexes -- --project <your-project-id>
 ```
 
 ## Environment Variables
