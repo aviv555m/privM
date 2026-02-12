@@ -239,7 +239,19 @@ export async function updateUserProfile(uid: string, payload: { displayName: str
 
 export async function resetUnreadCount(chatId: string, uid: string) {
   const { db } = getFirebaseClients();
-  await updateDoc(doc(db, 'chats', chatId), {
+  const chatRef = doc(db, 'chats', chatId);
+  const snapshot = await getDoc(chatRef);
+
+  if (!snapshot.exists()) return;
+
+  const chat = snapshot.data() as Omit<Chat, 'id'>;
+  const hasNoMessagesYet = (chat.lastSenderId ?? '') === '' && (chat.lastMessage ?? '') === '';
+
+  if (hasNoMessagesYet) {
+    return;
+  }
+
+  await updateDoc(chatRef, {
     [`unreadCountMap.${uid}`]: 0
   });
 }
