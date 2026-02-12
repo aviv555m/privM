@@ -1,5 +1,6 @@
 :root {
 <<<<<<< HEAD
+<<<<<<< HEAD
   --bg: #e9edef;
   --app-shell: #f0f2f5;
   --panel: #ffffff;
@@ -41,6 +42,8 @@ body {
 button,
 input {
 =======
+=======
+>>>>>>> 88e678f (fix: add firebase cli config for firestore deploys)
   --bg: #f4f5f8;
   --panel: #ffffff;
   --text: #111827;
@@ -65,20 +68,28 @@ body {
 }
 
 input, button {
+<<<<<<< HEAD
 >>>>>>> 5a9a70d (fix: remove binary assets from source control)
+=======
+>>>>>>> 88e678f (fix: add firebase cli config for firestore deploys)
   font: inherit;
 }
 
 .container {
 <<<<<<< HEAD
+<<<<<<< HEAD
   max-width: 1240px;
 =======
   max-width: 1100px;
 >>>>>>> 5a9a70d (fix: remove binary assets from source control)
+=======
+  max-width: 1100px;
+>>>>>>> 88e678f (fix: add firebase cli config for firestore deploys)
   margin: 0 auto;
   padding: 1rem;
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 .auth-card {
   max-width: 460px;
@@ -345,6 +356,8 @@ input, button {
   .chat-pane {
     min-height: 58vh;
 =======
+=======
+>>>>>>> 88e678f (fix: add firebase cli config for firestore deploys)
 .card {
   background: var(--panel);
   border-radius: 12px;
@@ -362,6 +375,9 @@ input, button {
   .layout {
     grid-template-columns: 1fr;
     height: auto;
+<<<<<<< HEAD
 >>>>>>> 5a9a70d (fix: remove binary assets from source control)
+=======
+>>>>>>> 88e678f (fix: add firebase cli config for firestore deploys)
   }
 }

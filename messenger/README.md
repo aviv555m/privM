@@ -38,13 +38,38 @@ messenger/
 2. Enable **Authentication → Email/Password**.
 3. Create **Firestore Database (production mode)**.
 4. In Firebase Console, copy your web app config values.
+<<<<<<< HEAD
 5. Deploy rules/indexes from this repo:
+=======
+5. From the `messenger/` root, deploy rules/indexes:
+>>>>>>> 88e678f (fix: add firebase cli config for firestore deploys)
 
 ```bash
 firebase deploy --only firestore:rules --project <your-project-id>
 firebase deploy --only firestore:indexes --project <your-project-id>
 ```
 
+<<<<<<< HEAD
+=======
+If you run commands from `messenger/firebase/`, pass the root config explicitly:
+
+```bash
+firebase deploy --config ../firebase.json --only firestore:rules --project <your-project-id>
+firebase deploy --config ../firebase.json --only firestore:indexes --project <your-project-id>
+```
+
+Optional: copy `.firebaserc.example` to `.firebaserc` and set your default project id.
+
+## Firebase Deploy Convenience Scripts
+
+From `messenger/` root:
+
+```bash
+pnpm firebase:deploy:rules -- --project <your-project-id>
+pnpm firebase:deploy:indexes -- --project <your-project-id>
+```
+
+>>>>>>> 88e678f (fix: add firebase cli config for firestore deploys)
 ## Environment Variables
 
 ### Web (`apps/web/.env.local`)
@@ -126,9 +151,12 @@ pnpm build:desktop
 
 ```bash
 <<<<<<< HEAD
+<<<<<<< HEAD
 pnpm check:conflicts
 =======
 >>>>>>> 5a9a70d (fix: remove binary assets from source control)
+=======
+>>>>>>> 88e678f (fix: add firebase cli config for firestore deploys)
 pnpm lint
 pnpm typecheck
 ```

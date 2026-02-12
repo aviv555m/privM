@@ -10,6 +10,7 @@
     "build:mobile": "pnpm --filter mobile export",
     "build:desktop": "pnpm --filter desktop tauri build",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "lint": "pnpm check:conflicts && pnpm -r lint",
     "typecheck": "pnpm check:conflicts && pnpm -r typecheck",
     "postinstall": "node scripts/generate-assets.mjs",
@@ -19,6 +20,13 @@
     "typecheck": "pnpm -r typecheck",
     "postinstall": "node scripts/generate-assets.mjs"
 >>>>>>> 5a9a70d (fix: remove binary assets from source control)
+=======
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "postinstall": "node scripts/generate-assets.mjs",
+    "firebase:deploy:rules": "firebase deploy --only firestore:rules",
+    "firebase:deploy:indexes": "firebase deploy --only firestore:indexes"
+>>>>>>> 88e678f (fix: add firebase cli config for firestore deploys)
   },
   "devDependencies": {
     "typescript": "^5.6.3"

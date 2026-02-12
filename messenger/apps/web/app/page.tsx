@@ -33,6 +33,7 @@ function formatTime(value?: { toDate?: () => Date } | null) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 function initials(name?: string | null) {
   if (!name) return '?';
   return name
@@ -45,6 +46,8 @@ function initials(name?: string | null) {
 
 =======
 >>>>>>> 5a9a70d (fix: remove binary assets from source control)
+=======
+>>>>>>> 88e678f (fix: add firebase cli config for firestore deploys)
 export default function HomePage() {
   const [mode, setMode] = useState<'light' | 'dark'>('light');
   const [currentUser, setCurrentUser] = useState<{ uid: string; email: string | null; displayName: string | null } | null>(null);
@@ -74,6 +77,7 @@ export default function HomePage() {
       }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
       const resolvedName = user.displayName ?? user.email?.split('@')[0] ?? 'User';
       setCurrentUser({ uid: user.uid, email: user.email, displayName: user.displayName });
       setDisplayName((value) => value || resolvedName);
@@ -83,12 +87,17 @@ export default function HomePage() {
         email: user.email ?? '',
         displayName: resolvedName,
 =======
+=======
+>>>>>>> 88e678f (fix: add firebase cli config for firestore deploys)
       setCurrentUser({ uid: user.uid, email: user.email, displayName: user.displayName });
       await upsertUserProfile({
         uid: user.uid,
         email: user.email ?? '',
         displayName: user.displayName ?? user.email?.split('@')[0] ?? 'User',
+<<<<<<< HEAD
 >>>>>>> 5a9a70d (fix: remove binary assets from source control)
+=======
+>>>>>>> 88e678f (fix: add firebase cli config for firestore deploys)
         photoURL: user.photoURL
       });
       await updatePresence(user.uid);
@@ -140,6 +149,7 @@ export default function HomePage() {
 
   async function handleProfileSave() {
 <<<<<<< HEAD
+<<<<<<< HEAD
     if (!currentUser || !displayName.trim()) return;
     await updateUserProfile(currentUser.uid, { displayName: displayName.trim(), photoURL: photoURL || null });
 =======
@@ -147,6 +157,11 @@ export default function HomePage() {
     await updateUserProfile(currentUser.uid, { displayName, photoURL: photoURL || null });
     alert('Profile saved');
 >>>>>>> 5a9a70d (fix: remove binary assets from source control)
+=======
+    if (!currentUser) return;
+    await updateUserProfile(currentUser.uid, { displayName, photoURL: photoURL || null });
+    alert('Profile saved');
+>>>>>>> 88e678f (fix: add firebase cli config for firestore deploys)
   }
 
   async function handleSearch() {
@@ -175,6 +190,7 @@ export default function HomePage() {
     return (
       <main className="container">
 <<<<<<< HEAD
+<<<<<<< HEAD
         <section className="auth-card">
           <h1 style={{ marginTop: 0 }}>Messenger</h1>
           <p style={{ color: 'var(--muted)' }}>Sign in with your email and password.</p>
@@ -185,6 +201,8 @@ export default function HomePage() {
             <button className="primary-btn" onClick={() => handleSignIn(false)}>Sign in</button>
             <button className="primary-btn" onClick={() => handleSignIn(true)}>Register</button>
 =======
+=======
+>>>>>>> 88e678f (fix: add firebase cli config for firestore deploys)
         <section className="card" style={{ maxWidth: 460, margin: '5rem auto' }}>
           <h1>Messenger</h1>
           <p>Sign in with your email and password.</p>
@@ -194,7 +212,10 @@ export default function HomePage() {
           <div style={{ display: 'flex', gap: 8 }}>
             <button onClick={() => handleSignIn(false)}>Sign in</button>
             <button onClick={() => handleSignIn(true)}>Register</button>
+<<<<<<< HEAD
 >>>>>>> 5a9a70d (fix: remove binary assets from source control)
+=======
+>>>>>>> 88e678f (fix: add firebase cli config for firestore deploys)
           </div>
         </section>
       </main>
@@ -203,6 +224,7 @@ export default function HomePage() {
 
   return (
     <main className="container">
+<<<<<<< HEAD
 <<<<<<< HEAD
       <header className="app-toolbar">
         <h1 style={{ margin: 0, fontSize: '1.2rem' }}>Messenger</h1>
@@ -285,6 +307,8 @@ export default function HomePage() {
                   <div className="bubble">{message.text}</div>
                   <small className="meta-time" style={{ alignSelf: 'flex-end', marginTop: 2 }}>{formatTime(message.createdAt)}</small>
 =======
+=======
+>>>>>>> 88e678f (fix: add firebase cli config for firestore deploys)
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
         <h1 style={{ margin: 0 }}>Messenger</h1>
         <div style={{ display: 'flex', gap: 8 }}>
@@ -343,12 +367,16 @@ export default function HomePage() {
                     {message.text}
                   </div>
                   <small style={{ color: 'var(--muted)' }}>{formatTime(message.createdAt)}</small>
+<<<<<<< HEAD
 >>>>>>> 5a9a70d (fix: remove binary assets from source control)
+=======
+>>>>>>> 88e678f (fix: add firebase cli config for firestore deploys)
                 </div>
               );
             })}
             <div ref={messageEndRef} />
           </div>
+<<<<<<< HEAD
 <<<<<<< HEAD
 
           <div className="composer">
@@ -358,6 +386,10 @@ export default function HomePage() {
           <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
             <input
 >>>>>>> 5a9a70d (fix: remove binary assets from source control)
+=======
+          <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
+            <input
+>>>>>>> 88e678f (fix: add firebase cli config for firestore deploys)
               value={draft}
               onChange={(e) => setDraft(e.target.value)}
               onKeyDown={(e) => {
@@ -367,15 +399,21 @@ export default function HomePage() {
                 }
               }}
 <<<<<<< HEAD
+<<<<<<< HEAD
               placeholder={`Type a message (${MAX_MESSAGE_LENGTH} max)`}
             />
             <button className="primary-btn" onClick={handleSend}>Send</button>
 =======
+=======
+>>>>>>> 88e678f (fix: add firebase cli config for firestore deploys)
               placeholder={`Message (max ${MAX_MESSAGE_LENGTH})`}
               style={{ width: '100%' }}
             />
             <button onClick={handleSend}>Send</button>
+<<<<<<< HEAD
 >>>>>>> 5a9a70d (fix: remove binary assets from source control)
+=======
+>>>>>>> 88e678f (fix: add firebase cli config for firestore deploys)
           </div>
         </section>
       </section>
