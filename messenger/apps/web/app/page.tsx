@@ -99,15 +99,9 @@ export default function HomePage() {
   useEffect(() => {
     if (!selectedChatId || !currentUser) return;
     const stop = listenToMessages(selectedChatId, setMessages);
-
-    const chat = chats.find((item) => item.id === selectedChatId);
-    const hasMessages = Boolean(chat?.lastSenderId && chat?.lastMessage);
-    if (hasMessages) {
-      resetUnreadCount(selectedChatId, currentUser.uid);
-    }
-
+    resetUnreadCount(selectedChatId, currentUser.uid);
     return () => stop();
-  }, [selectedChatId, currentUser, chats]);
+  }, [selectedChatId, currentUser]);
 
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });

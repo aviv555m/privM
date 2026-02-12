@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Button, FlatList, Text, TextInput, View } from 'react-native';
-import { listenToMessages, MAX_MESSAGE_LENGTH, sanitizeMessage, sendMessage, type Message } from '@messenger/shared';
+import { listenToMessages, MAX_MESSAGE_LENGTH, sanitizeMessage, sendMessage, resetUnreadCount, type Message } from '@messenger/shared';
 import { useAuth } from '../context/auth';
 
 export default function ChatRoomScreen({ route }: any) {
@@ -12,6 +12,7 @@ export default function ChatRoomScreen({ route }: any) {
   useEffect(() => {
     if (!user) return;
     const unsub = listenToMessages(chatId, setMessages);
+    resetUnreadCount(chatId, user.uid);
     return () => unsub();
   }, [chatId, user]);
 
