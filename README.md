@@ -79,7 +79,7 @@ Desktop reuses the web client env vars. Put Firebase values in `apps/web/.env.lo
 git clone https://github.com/aviv555m/privM
 cd privM
 cd messenger
-winget install pnpm
+Invoke-WebRequest https://get.pnpm.io/install.ps1 -UseBasicParsing | Invoke-Expression
 pnpm install
 ```
 
